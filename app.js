@@ -65,7 +65,4 @@ app.use((err, req, res, next) => {
   res.status(statusCode).send({ message: `${name}: ${message}` });
 });
 
-app.listen(PORT, () => {
-    // Если всё работает, консоль покажет, какой порт приложение слушает
-    console.log(`App listening on port ${PORT}`)
-})
+app.listen(PORT);
