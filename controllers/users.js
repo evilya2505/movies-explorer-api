@@ -39,6 +39,8 @@ const updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
         throw new BadRequestError('Переданы неккоректные данные.');
+      } else if (err.name === 'MongoServerError' && err.code === 11000) {
+        throw new ConflictError('Пользователь с таким email уже существует.');
       } else {
         next(err);
       }

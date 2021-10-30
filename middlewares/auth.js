@@ -9,12 +9,13 @@ module.exports = (req, res, next) => {
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
     next(unauthorizedError);
+    return;
   }
 
-  try {
-    const token = authorization.replace('Bearer ', '');
-    let playload;
+  const token = authorization.replace('Bearer ', '');
+  let playload;
 
+  try {
     playload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (err) {
     next(unauthorizedError);

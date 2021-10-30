@@ -5,8 +5,8 @@ const {
 } = require('../controllers/movies');
 
 // --- Описание основных роутов для пользователя ---
-router.get('/', getMovies);
-router.post('/', celebrate({
+router.get('/movies', getMovies);
+router.post('/movies', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
     director: Joi.string().required(),
@@ -18,10 +18,10 @@ router.post('/', celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     thumbnail: Joi.string().required().regex(/^https?:\/\/((www\.)?[\w-]+\.\w{2,6})\/?/),
-    movieId: Joi.string().required(),
+    movieId: Joi.number().required(),
   }),
 }), postMovie);
-router.delete('/:movieId', celebrate({
+router.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().hex().length(24).required(),
   }),
